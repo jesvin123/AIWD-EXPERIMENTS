@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Event Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-start: #0f172a;
+            --bg-end: #1e293b;
+            --card-bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-soft: #475569;
+            --accent-1: #0ea5e9;
+            --accent-2: #22c55e;
+            --danger-1: #f97316;
+            --danger-2: #ef4444;
+            --radius-lg: 22px;
+            --radius-md: 14px;
+            --shadow-lg: 0 24px 60px rgba(2, 8, 23, 0.35);
+            --shadow-sm: 0 10px 24px rgba(15, 23, 42, 0.14);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at 8% 15%, rgba(34, 197, 94, 0.24) 0 140px, transparent 160px),
+                radial-gradient(circle at 90% 82%, rgba(14, 165, 233, 0.26) 0 180px, transparent 210px),
+                linear-gradient(140deg, var(--bg-start), var(--bg-end));
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .app {
+            width: min(980px, 100%);
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            animation: page-enter 650ms ease;
+        }
+
+        @keyframes page-enter {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.99);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            padding: 28px 28px 20px;
+            background: linear-gradient(135deg, #e2e8f0 0%, #ecfeff 48%, #dcfce7 100%);
+            border-bottom: 1px solid #dbeafe;
+        }
+
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.55rem, 3.6vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            margin-top: 8px;
+            color: var(--text-soft);
+            font-size: 0.98rem;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 20px;
+            padding: 22px;
+        }
+
+        .panel {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+        }
+
+        .panel-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            margin-bottom: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.92rem;
+        }
+
+        input,
+        select,
+        button {
+            font: inherit;
+        }
+
+        input,
+        select {
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 12px 13px;
+            background: #f8fafc;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #0284c7 0%, #22c55e 100%);
+            cursor: pointer;
+            transition: transform 0.18s ease, filter 0.18s ease;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: brightness(1.04);
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.64;
+        }
+
+        .selection-chip {
+            margin-bottom: 14px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .selection-chip b {
+            color: #1e40af;
+        }
+
+        .event-date {
+            margin-top: 8px;
+            margin-bottom: 14px;
+            color: var(--text-soft);
+            font-size: 0.92rem;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 99px;
+            background: #e2e8f0;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .progress-bar.warning {
+            background: linear-gradient(90deg, var(--danger-1), var(--danger-2));
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .time-box {
+            border-radius: 12px;
+            padding: 14px 8px;
+            text-align: center;
+            color: #fff;
+            background: linear-gradient(160deg, #0ea5e9 0%, #0369a1 100%);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .time-box.warning {
+            background: linear-gradient(160deg, #f97316 0%, #ef4444 100%);
+        }
+
+        .time-box.bump {
+            animation: bump 520ms ease;
+        }
+
+        @keyframes bump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.07); }
+            100% { transform: scale(1); }
+        }
+
+        .num {
+            font-size: clamp(1.45rem, 4.4vw, 2rem);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .lbl {
+            margin-top: 5px;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0.94;
+        }
+
+        .closed-banner {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #dc2626;
+            color: #b91c1c;
+            background: #fef2f2;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        .closed-banner.show {
+            display: block;
+            animation: blink 0.85s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.55;
+            }
+        }
+
+        .muted-note {
+            margin-top: 14px;
+            color: #64748b;
+            font-size: 0.86rem;
+        }
+
+        .inline-edit {
+            margin-top: 14px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .inline-edit label {
+            font-size: 0.84rem;
+            color: #475569;
+        }
+
+        .inline-edit-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+        }
+
+        .inline-edit input {
+            min-width: 0;
+        }
+
+        .inline-edit button {
+            padding: 10px 12px;
+            font-size: 0.9rem;
+        }
+
+        .disabled {
+            opacity: 0.58;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .header {
+                padding: 22px 18px 16px;
+            }
+
+            .layout {
+                padding: 14px;
+                gap: 14px;
+            }
+
+            .panel {
+                padding: 14px;
+            }
+
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="app">
+        <header class="header">
+            <h1 class="title">Event Registration Portal</h1>
+            <p class="subtitle">Select an event, watch the live countdown, and complete your registration before time runs out.</p>
+        </header>
+
+        <section class="layout">
+            <article class="panel" id="formPanel">
+                <h2 class="panel-title">Registration Form</h2>
+                <form id="registrationForm" class="form-grid">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input id="name" name="name" type="text" placeholder="Your full name" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Phone</label>
+                        <input id="phone" name="phone" type="tel" placeholder="+1 555 123 4567" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="eventSelect">Select Event</label>
+                        <select id="eventSelect" name="event" required>
+                            <option value="techConference">Tech Conference</option>
+                            <option value="musicFest">Music Fest</option>
+                            <option value="artExhibition">Art Exhibition</option>
+                        </select>
+                    </div>
+
+                    <button id="submitBtn" type="submit">Register Now</button>
+                </form>
+            </article>
+
+            <article class="panel">
+                <h2 class="panel-title">Live Countdown</h2>
+                <div class="selection-chip" id="selectedEvent">Selected Event: <b>Tech Conference</b></div>
+                <p class="event-date" id="selectedEventDate">Registration closes on: --</p>
+
+                <div class="progress-track">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div class="countdown" id="countdownGrid">
+                    <div class="time-box" id="daysBox">
+                        <div class="num" id="days">00</div>
+                        <div class="lbl">Days</div>
+                    </div>
+                    <div class="time-box" id="hoursBox">
+                        <div class="num" id="hours">00</div>
+                        <div class="lbl">Hours</div>
+                    </div>
+                    <div class="time-box" id="minutesBox">
+                        <div class="num" id="minutes">00</div>
+                        <div class="lbl">Minutes</div>
+                    </div>
+                    <div class="time-box" id="secondsBox">
+                        <div class="num" id="seconds">00</div>
+                        <div class="lbl">Seconds</div>
+                    </div>
+                </div>
+
+                <div class="closed-banner" id="closedBanner"><strong>Registration Closed</strong></div>
+                <div class="inline-edit">
+                    <label for="customCloseAt">Modify countdown (selected event close date/time)</label>
+                    <div class="inline-edit-row">
+                        <input id="customCloseAt" type="datetime-local">
+                        <button id="applyCustomTimeBtn" type="button">Apply</button>
+                    </div>
+                </div>
+                <p class="muted-note">Tip: change event dates in the JavaScript object for quick scheduling updates.</p>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        // Update event dates here as needed.
+        const EVENTS = {
+            techConference: {
+                name: 'Tech Conference',
+                closeAt: '2026-12-20T18:00:00'
+            },
+            musicFest: {
+                name: 'Music Fest',
+                closeAt: '2026-10-04T20:30:00'
+            },
+            artExhibition: {
+                name: 'Art Exhibition',
+                closeAt: '2026-08-14T17:15:00'
+            }
+        };
+
+        const form = document.getElementById('registrationForm');
+        const formPanel = document.getElementById('formPanel');
+        const submitBtn = document.getElementById('submitBtn');
+        const eventSelect = document.getElementById('eventSelect');
+
+        const selectedEvent = document.getElementById('selectedEvent');
+        const selectedEventDate = document.getElementById('selectedEventDate');
+        const closedBanner = document.getElementById('closedBanner');
+        const progressBar = document.getElementById('progressBar');
+        const customCloseAt = document.getElementById('customCloseAt');
+        const applyCustomTimeBtn = document.getElementById('applyCustomTimeBtn');
+
+        const timeElements = {
+            days: document.getElementById('days'),
+            hours: document.getElementById('hours'),
+            minutes: document.getElementById('minutes'),
+            seconds: document.getElementById('seconds')
+        };
+
+        const timeBoxes = Array.from(document.querySelectorAll('.time-box'));
+        const formControls = Array.from(form.querySelectorAll('input, select, button'));
+
+        let timerId = null;
+        let activeEventKey = eventSelect.value;
+        let totalDurationMs = 0;
+
+        function getEventCloseTimeMs(eventKey) {
+            return new Date(EVENTS[eventKey].closeAt).getTime();
+        }
+
+        function formatEventDate(ms) {
+            return new Date(ms).toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatForDateTimeLocal(ms) {
+            const d = new Date(ms);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            const hours = String(d.getHours()).padStart(2, '0');
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            return year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+        }
+
+        function updateValue(element, value) {
+            const nextText = String(value).padStart(2, '0');
+            if (element.textContent !== nextText) {
+                element.textContent = nextText;
+                const box = element.closest('.time-box');
+                box.classList.remove('bump');
+                void box.offsetWidth;
+                box.classList.add('bump');
+            }
+        }
+
+        function updateCountdownView(diffMs) {
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+            updateValue(timeElements.days, days);
+            updateValue(timeElements.hours, hours);
+            updateValue(timeElements.minutes, minutes);
+            updateValue(timeElements.seconds, seconds);
+        }
+
+        function setClosedState(isClosed) {
+            formControls.forEach((el) => {
+                el.disabled = isClosed;
+            });
+
+            if (isClosed) {
+                closedBanner.classList.add('show');
+                formPanel.classList.add('disabled');
+            } else {
+                closedBanner.classList.remove('show');
+                formPanel.classList.remove('disabled');
+            }
+        }
+
+        function updateWarningState(diffMs) {
+            const lowTime = diffMs <= 24 * 60 * 60 * 1000;
+            progressBar.classList.toggle('warning', lowTime);
+            timeBoxes.forEach((box) => box.classList.toggle('warning', lowTime));
+        }
+
+        function updateProgress(diffMs) {
+            const remainingPercent = totalDurationMs <= 0 ? 0 : (diffMs / totalDurationMs) * 100;
+            progressBar.style.width = Math.max(0, Math.min(100, remainingPercent)) + '%';
+        }
+
+        function stopTimer() {
+            if (timerId !== null) {
+                clearInterval(timerId);
+                timerId = null;
+            }
+        }
+
+        function tick() {
+            const now = Date.now();
+            const eventTime = getEventCloseTimeMs(activeEventKey);
+            const diffMs = eventTime - now;
+
+            if (diffMs <= 0) {
+                updateCountdownView(0);
+                updateProgress(0);
+                updateWarningState(0);
+                stopTimer();
+                setClosedState(true);
+                return;
+            }
+
+            updateCountdownView(diffMs);
+            updateProgress(diffMs);
+            updateWarningState(diffMs);
+            setClosedState(false);
+        }
+
+        function startTimerForEvent(eventKey) {
+            activeEventKey = eventKey;
+            stopTimer();
+
+            const eventObj = EVENTS[eventKey];
+            const eventMs = getEventCloseTimeMs(eventKey);
+
+            selectedEvent.innerHTML = 'Selected Event: <b>' + eventObj.name + '</b>';
+            selectedEventDate.textContent = 'Registration closes on: ' + formatEventDate(eventMs);
+            customCloseAt.value = formatForDateTimeLocal(eventMs);
+
+            totalDurationMs = eventMs - Date.now();
+            tick();
+
+            if (totalDurationMs > 0) {
+                timerId = setInterval(tick, 1000);
+            }
+        }
+
+        eventSelect.addEventListener('change', (e) => {
+            startTimerForEvent(e.target.value);
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (submitBtn.disabled) {
+                return;
+            }
+            alert('Registration submitted for ' + EVENTS[activeEventKey].name + '!');
+            form.reset();
+            eventSelect.value = activeEventKey;
+        });
+
+        applyCustomTimeBtn.addEventListener('click', () => {
+            if (!customCloseAt.value) {
+                return;
+            }
+
+            EVENTS[activeEventKey].closeAt = customCloseAt.value;
+            startTimerForEvent(activeEventKey);
+        });
+
+        startTimerForEvent(eventSelect.value);
+    </script>
+</body>
+</html>
