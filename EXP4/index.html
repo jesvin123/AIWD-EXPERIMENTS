@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="calculator-wrap">
+    <section class="calculator" aria-label="Basic calculator">
+      <h1>Basic Calculator</h1>
+
+      <div class="field-group">
+        <label for="num1">First Number</label>
+        <input id="num1" type="text" inputmode="decimal" placeholder="Enter first number" />
+      </div>
+
+      <div class="field-group">
+        <label for="num2">Second Number</label>
+        <input id="num2" type="text" inputmode="decimal" placeholder="Enter second number" />
+      </div>
+
+      <div class="button-grid">
+        <button type="button" onclick="calculate('add')">Add</button>
+        <button type="button" onclick="calculate('subtract')">Subtract</button>
+        <button type="button" onclick="calculate('multiply')">Multiply</button>
+        <button type="button" onclick="calculate('divide')">Divide</button>
+        <button type="button" class="clear-btn" onclick="clearFields()">Clear</button>
+      </div>
+
+      <section class="result-box" aria-live="polite">
+        <h2>Result</h2>
+        <p id="result">Enter values and choose an operation.</p>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
