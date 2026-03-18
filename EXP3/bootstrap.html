@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Event Portal - Tech Fest 2026</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  </head>
+  <body style="padding-top:70px;">
+
+    <!-- NAVBAR (sticky) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Event Portal</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="text-white" style="background-image:url('https://source.unsplash.com/1600x900/?conference,technology,event'); background-size:cover; background-position:center;">
+      <div class="bg-dark bg-opacity-50">
+        <div class="container py-5">
+          <div class="row align-items-center">
+            <div class="col-lg-7 text-center text-lg-start">
+              <h1 class="display-4 fw-bold">Tech Fest 2026</h1>
+              <p class="lead">A premier gathering of technologists, designers, and entrepreneurs — talks, workshops, and networking for three unforgettable days.</p>
+              <a href="#register" class="btn btn-lg btn-light text-primary">Register Now</a>
+            </div>
+            <div class="col-lg-5 text-center mt-4 mt-lg-0">
+              <div class="card bg-transparent border-0">
+                <div class="card-body text-white">
+                  <h5 class="card-title">Next up</h5>
+                  <p class="card-text">Spring Summit — May 21-23, 2026</p>
+                  <a href="#events" class="btn btn-outline-light btn-sm">View Schedule</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="container my-5">
+
+      <!-- CAROUSEL -->
+      <section class="mb-5">
+        <div id="eventsCarousel" class="carousel slide shadow-sm rounded" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="https://source.unsplash.com/1200x500/?conference,stage" class="d-block w-100" alt="carousel 1">
+            </div>
+            <div class="carousel-item">
+              <img src="https://source.unsplash.com/1200x500/?audience,networking" class="d-block w-100" alt="carousel 2">
+            </div>
+            <div class="carousel-item">
+              <img src="https://source.unsplash.com/1200x500/?workshop,team" class="d-block w-100" alt="carousel 3">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- EVENTS CARDS -->
+      <section id="events" class="mb-5">
+        <h2 class="mb-4">Upcoming Events</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="https://source.unsplash.com/800x600/?web,development" class="card-img-top img-fluid" alt="Web Dev Bootcamp">
+              <div class="card-body">
+                <h5 class="card-title">Web Dev Bootcamp</h5>
+                <p class="card-text">A fast-paced bootcamp teaching modern front-end and back-end workflows.</p>
+                <span class="badge bg-danger">Limited Seats</span>
+              </div>
+              <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+                <a href="#register" class="btn btn-primary">Register</a>
+                <a href="#" class="btn btn-outline-success">Details</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="https://source.unsplash.com/800x600/?design,workshop" class="card-img-top img-fluid" alt="Design Workshop">
+              <div class="card-body">
+                <h5 class="card-title">Design Thinking Workshop</h5>
+                <p class="card-text">Hands-on sessions to prototype and test user-centered solutions.</p>
+                <span class="badge bg-success">New</span>
+              </div>
+              <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+                <a href="#register" class="btn btn-success">Register</a>
+                <a href="#" class="btn btn-outline-primary">Details</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="https://source.unsplash.com/800x600/?leadership,conference" class="card-img-top img-fluid" alt="Leadership Forum">
+              <div class="card-body">
+                <h5 class="card-title">Leadership Forum</h5>
+                <p class="card-text">Panels and talks from industry leaders about scaling teams and culture.</p>
+                <span class="badge bg-warning text-dark">Popular</span>
+              </div>
+              <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+                <a href="#register" class="btn btn-primary">Register</a>
+                <a href="#" class="btn btn-outline-danger">Details</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="https://source.unsplash.com/800x600/?startup,pitch" class="card-img-top img-fluid" alt="Startup Pitch">
+              <div class="card-body">
+                <h5 class="card-title">Startup Pitch Night</h5>
+                <p class="card-text">Pitch your startup to investors and mentors in a fast-paced format.</p>
+                <span class="badge bg-info text-dark">Featured</span>
+              </div>
+              <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+                <a href="#register" class="btn btn-info text-white">Register</a>
+                <a href="#" class="btn btn-outline-secondary">Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEDIA SECTION (responsive YouTube) -->
+      <section class="mb-5">
+        <h2 class="mb-3">Event Preview</h2>
+        <div class="ratio ratio-16x9 shadow-sm rounded">
+          <video class="w-100 h-100" controls playsinline preload="metadata">
+            <source src="event_project/Recording 2026-03-18 094933.mp4" type="video/mp4">
+            Your browser does not support the video tag. You can download the video <a href="event_project/Recording 2026-03-18 094933.mp4">here</a>.
+          </video>
+        </div>
+      </section>
+
+      <div class="row g-4">
+        <!-- LEFT: Image / Media Card -->
+        <div class="col-12 col-lg-7">
+          <div class="card shadow-sm">
+            <img src="https://source.unsplash.com/1200x700/?conference,people" class="card-img-top img-fluid" alt="Conference">
+            <div class="card-body">
+              <h5 class="card-title">Featured: Tech Fest Highlights</h5>
+              <p class="card-text">Join specialized tracks, mentorship hours, and a career fair tailored for tech professionals.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Registration Form -->
+        <aside id="register" class="col-12 col-lg-5">
+          <div class="card shadow-sm p-3">
+            <div class="card-body">
+              <h4 class="card-title mb-3">Register for an Event</h4>
+
+              <div id="submitAlert" class="alert alert-success d-none" role="alert"></div>
+
+              <form id="registrationForm" novalidate>
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="fullName" placeholder="Jane Doe" required>
+                  <div class="invalid-feedback">Please enter your full name.</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                  <div class="invalid-feedback">Please provide a valid email.</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 555-5555" required>
+                  <div class="invalid-feedback">Please enter your phone number.</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="eventChoice" class="form-label">Select Event</label>
+                  <select id="eventChoice" class="form-select" required>
+                    <option value="">Choose an event...</option>
+                    <option>Tech Fest 2026</option>
+                    <option>Web Dev Bootcamp</option>
+                    <option>Design Thinking Workshop</option>
+                    <option>Startup Pitch Night</option>
+                  </select>
+                  <div class="invalid-feedback">Please select an event.</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="eventDate" class="form-label">Event Date</label>
+                  <input type="date" class="form-control" id="eventDate" required>
+                  <div class="invalid-feedback">Please select a date.</div>
+                </div>
+
+                <div class="d-grid">
+                  <button id="submitBtn" type="submit" class="btn btn-success btn-lg shadow">Submit Registration</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- MODAL: Registration Confirmation -->
+    <div class="modal fade" id="registrationModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Registration Confirmed</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="modalBody">
+            <!-- Filled by JS -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-dark text-white py-4 mt-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h5>Contact Us</h5>
+            <p class="mb-1">Email: info@eventportal.example</p>
+            <p class="mb-0">Phone: +1 (555) 123-4567</p>
+          </div>
+          <div class="col-md-6 text-md-end mt-3 mt-md-0">
+            <h5>Follow</h5>
+            <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="text-white me-2"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+          </div>
+        </div>
+        <div class="text-center mt-3 small">&copy; 2026 Event Portal. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Page JS: form validation, modal, alert -->
+    <script>
+      (function () {
+        const form = document.getElementById('registrationForm');
+        const modalEl = document.getElementById('registrationModal');
+        const modalBody = document.getElementById('modalBody');
+        const submitAlert = document.getElementById('submitAlert');
+        const bootstrapModal = new bootstrap.Modal(modalEl);
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
+          }
+
+          // Gather form values
+          const name = document.getElementById('fullName').value;
+          const email = document.getElementById('email').value;
+          const phone = document.getElementById('phone').value;
+          const eventChoice = document.getElementById('eventChoice').value;
+          const date = document.getElementById('eventDate').value;
+
+          // Show alert
+          submitAlert.textContent = `Thanks ${name}! You've been registered for ${eventChoice} on ${date}. A confirmation email was sent to ${email}.`;
+          submitAlert.classList.remove('d-none');
+
+          // Populate and show modal
+          modalBody.innerHTML = `
+            <p><strong>${name}</strong>, your registration for <strong>${eventChoice}</strong> on <strong>${date}</strong> is confirmed.</p>
+            <p>We will contact you at <strong>${email}</strong> or <strong>${phone}</strong> with further details.</p>
+          `;
+          bootstrapModal.show();
+
+          // Reset form after short delay
+          setTimeout(() => {
+            form.reset();
+            form.classList.remove('was-validated');
+          }, 500);
+        });
+      })();
+    </script>
+  </body>
+</html>
