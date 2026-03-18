@@ -130,3 +130,12 @@ h2 {
     font-size: 0.92rem;
   }
 }
+
+.calc-banner-img {
+  display: block;
+  width: calc(100% + 44px);
+  margin: -22px -22px 18px;
+  border-radius: 14px 14px 0 0;
+  height: 160px;
+  object-fit: cover;
+}
