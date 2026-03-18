@@ -334,11 +334,25 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        .header-banner-img {
+            display: block;
+            width: calc(100% + 56px);
+            margin: -28px -28px 20px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 22px 22px 0 0;
+        }
     </style>
 </head>
 <body>
     <main class="app">
         <header class="header">
+            <img
+              src="https://picsum.photos/seed/eventbanner/980/200"
+              alt="Event countdown banner"
+              class="header-banner-img"
+            />
             <h1 class="title">Event Registration Portal</h1>
             <p class="subtitle">Select an event, watch the live countdown, and complete your registration before time runs out.</p>
         </header>
