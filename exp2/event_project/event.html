@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Event Registration & Promotional Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <h2>EventPortal</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#register">Register</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <div class="banner-content">
+            <h1 class="event-title">Annual Tech Conference 2024</h1>
+            <p class="event-subtitle">Join us for the most innovative tech event of the year!</p>
+            <a href="#registration" class="cta-button">Register Now</a>
+        </div>
+    </section>
+
+    <section class="main-content" id="home">
+        <div class="event-media">
+            <img src="https://via.placeholder.com/800x500/4A90E2/FFFFFF?text=Event+Image" alt="Event Image" class="event-image">
+            <div class="video-container">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen class="event-video"></iframe>
+            </div>
+        </div>
+
+        <div class="registration-section" id="register">
+            <div class="form-container">
+                <h2>Register for the Event</h2>
+                <form class="registration-form" id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="eventType">Event Type</label>
+                        <select id="eventType" name="eventType">
+                            <option value="">Select Event</option>
+                            <option value="conference">Conference</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="networking">Networking</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Interests</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="ai"> AI & Machine Learning
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="web"> Web Development
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="cloud"> Cloud Computing
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Special Requirements</label>
+                        <textarea id="comments" name="comments" rows="4" placeholder="Any dietary restrictions or special needs..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Register Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 EventPortal. All rights reserved.</p>
+    </footer>
+</body>
+</html>
